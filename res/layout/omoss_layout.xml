@@ -22,7 +22,8 @@
 	    android:layout_height="wrap_content"
 	    android:text="@string/lorem_ipsum" 
 	    android:padding="0dp"
-	    android:textSize="15sp">        
+	    android:textSize="15sp"
+	    android:id="@+id/brodtext">        
     </TextView>
 </ScrollView>
 </LinearLayout>

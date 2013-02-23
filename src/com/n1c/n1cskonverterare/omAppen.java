@@ -7,7 +7,9 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 @SuppressLint("NewApi")
 public class omAppen extends Activity{
@@ -21,6 +23,9 @@ public class omAppen extends Activity{
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // Show the Up button in the action bar.
             getActionBar().setDisplayHomeAsUpEnabled(true);
+            
+            TextView t2 = (TextView) findViewById(R.id.brodtext);
+            t2.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 

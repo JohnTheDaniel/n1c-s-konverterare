@@ -51,9 +51,7 @@ public class StartPoint extends Activity {
 		
 		//Standard konverterare
 		valueTypeSpinner.setAdapter(valueTypeAdapter);
-		spinner1.setAdapter(volymEnheterAdapter);
-		spinner1.setAdapter(volymEnheterAdapter);
-		
+
 		//Skapa olika konverterare
 		valueTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -85,16 +83,15 @@ public class StartPoint extends Activity {
 					spinner1.setAdapter(tidEnheterAdapter);
 					spinner2.setAdapter(tidEnheterAdapter);
 				}
+				spinner2.setSelection(1);
 			}
-			
-			
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 				// TODO Auto-generated method stub
 				
-			}
-			
+			}	
 		});
+		
 		
 		//Räknaren
 		//Lyssna efter klick på den undre knappen
@@ -114,10 +111,8 @@ public class StartPoint extends Activity {
 				Toast toast = Toast.makeText(context, text, duration);
 				toast.show();
 				
-				String output = Calculate(enhet1, enhet2);
-				
+				String output = Calculate(enhet1, enhet2);	
 			}
-			
 		});
 	}
 	

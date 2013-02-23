@@ -53,7 +53,8 @@
 		    android:src="@drawable/arrow"
 		    android:layout_height="wrap_content"
 		    android:layout_width="wrap_content"
-		    android:id="@id/arrow"/>
+		    android:id="@id/arrow"
+		    android:paddingTop="15dp"/>
     </RelativeLayout>
 
 	<LinearLayout 

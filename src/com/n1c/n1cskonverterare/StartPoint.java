@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,12 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StartPoint extends Activity {
 	
 	Spinner spinner2, spinner1, valueTypeSpinner;
-	EditText inValue;
+	EditText editTextInValue;
 	LinearLayout bottomButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class StartPoint extends Activity {
 		valueTypeSpinner = (Spinner) findViewById(R.id.valueTypeSpinner);	
 		spinner1 = (Spinner) findViewById(R.id.spinner1);
 		spinner2 = (Spinner) findViewById(R.id.spinner2);
-		inValue = (EditText) findViewById(R.id.inValue);
+		editTextInValue = (EditText) findViewById(R.id.inValue);
 		
 		
 		//Set upp en ArrayAdapter till alla spinner-värden
@@ -103,15 +105,24 @@ public class StartPoint extends Activity {
 				// TODO Auto-generated method stub
 				String enhet1 = spinner1.getItemAtPosition(spinner1.getSelectedItemPosition()).toString();
 				String enhet2 = spinner2.getItemAtPosition(spinner2.getSelectedItemPosition()).toString();
-				
+				if (editTextInValue.getText().toString().matches("\\d")){
+					double value = Double.parseDouble(editTextInValue.getText().toString());
+					String output = Calculate(valueTypeSpinner.getItemAtPosition(valueTypeSpinner.getSelectedItemPosition()).toString(), enhet1, enhet2, value);
+				}
+				else {
+					Context context = getApplicationContext();
+					CharSequence text = "Inget värde angivet";
+					int duration = Toast.LENGTH_SHORT;
+
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+				}
 				Context context = getApplicationContext();
 				CharSequence text = enhet1 + " konverteras till "+ enhet2;
 				int duration = Toast.LENGTH_SHORT;
 
 				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
-				
-				String output = Calculate(enhet1, enhet2);	
+				toast.show();	
 			}
 		});
 	}
@@ -120,9 +131,32 @@ public class StartPoint extends Activity {
 		ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	}
 	
-	public String Calculate(String fran, String till) {
-		return null;
+	public String Calculate(String type, String fran, String till, double value) {
+		if (type.equals("Volym")){
+			Context context = getApplicationContext();
+			CharSequence text = "Gör funktionen för " + type;
+			int duration = Toast.LENGTH_SHORT;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+			return null;
+		}
+		else if (type.equals("Area")){
+			Context context = getApplicationContext();
+			CharSequence text = "Gör funktion för " + type;
+			int duration = Toast.LENGTH_SHORT;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+			return null;
+		}
+		else {
+			return null;
+		}
+	}
+	public String Explaination(String output){
 		
+		return null;
 	}
 	
 	@Override
@@ -138,6 +172,15 @@ public class StartPoint extends Activity {
 			startActivity(intent);
 			overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
 			return true;
+		case R.id.action_settings:
+			Context context = getApplicationContext();
+			CharSequence text = "Inställningarna excisterar bara i parallella universum.\n\nInställningar kommer i framtida versioner.";
+			int duration = Toast.LENGTH_LONG;
+
+			Toast toast = Toast.makeText(context, text, duration);
+			TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+			if( v != null) v.setGravity(Gravity.CENTER);
+			toast.show();
 		default:
 			return super.onOptionsItemSelected(item);
 		}

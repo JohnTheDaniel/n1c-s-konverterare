@@ -55,12 +55,40 @@
 		    android:layout_width="wrap_content"
 		    android:id="@id/arrow"
 		    android:paddingTop="15dp"/>
+		<LinearLayout 
+		    android:layout_below="@id/spinner1"
+		    android:layout_height="wrap_content"
+		    android:layout_width="fill_parent"
+		    android:padding="8dp"
+		    android:layout_marginTop="35dp"
+		    android:orientation="vertical">
+		    <TextView 
+		        android:text="Output Area"
+		        android:layout_height="96dp"
+		        android:layout_width="fill_parent"
+		        android:gravity="center"
+		        android:textSize="35sp"
+		        android:background="@drawable/gray_line_bg"
+		        android:textStyle="italic"
+		        android:id="@+id/output"
+		        android:longClickable="true"/>
+		    	
+		    <TextView 
+		        android:text="Förklaring"
+		        android:layout_height="48dp"
+		        android:layout_width="fill_parent"
+		        android:gravity="center"
+		        android:background="@drawable/gray_line_bg"
+		        android:layout_marginTop="8dp"
+		        android:textSize="20sp"
+		        />
+		</LinearLayout>
     </RelativeLayout>
-
+	
 	<LinearLayout 
 	    android:layout_alignParentBottom="true"
 	    android:layout_width="fill_parent"
-	    android:layout_height="48dp"
+	    android:layout_height="51dp"
 	    android:background="@drawable/border_forlist"
 	    android:clickable="true"
 	    android:id="@+id/bottomButton"

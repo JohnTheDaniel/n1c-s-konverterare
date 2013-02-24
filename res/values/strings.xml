@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">N1c\'s konverterare</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Inställningar</string>
     <string name="hello_world">Hello world!</string>
     <string name="Till">Till</string>
     <string name="Fran">Från</string>

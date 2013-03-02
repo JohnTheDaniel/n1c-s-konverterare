@@ -12,6 +12,6 @@ Eller skicka in problemrapport via github<br />
 
 
 <p><h2>Screenshot</h2>
-<img height="500" src="https://lh4.googleusercontent.com/arEdIB7MwDEj0m-jqvVpjAFCXQ9huv1ckKywo9SKQclMlzl7nW8ToJS3QgkIbKAPgQ=w1600"></img>
+<img height="500" src="https://drive.google.com/uc?export=download&id=0B-SjHmU052gqZ293eTVBaHRROGs"></img>
 </p>
 Forka så mycket ni vill!

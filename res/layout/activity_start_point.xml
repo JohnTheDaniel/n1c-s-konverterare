@@ -81,6 +81,8 @@
 		        android:background="@drawable/gray_line_bg"
 		        android:layout_marginTop="8dp"
 		        android:textSize="20sp"
+		        android:id="@+id/explain"
+		        android:textStyle="bold"
 		        />
 		</LinearLayout>
     </RelativeLayout>

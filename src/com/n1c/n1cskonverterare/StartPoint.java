@@ -23,6 +23,7 @@ public class StartPoint extends Activity {
 	Spinner spinner2, spinner1, valueTypeSpinner;
 	EditText editTextInValue;
 	LinearLayout bottomButton;
+	String explained;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class StartPoint extends Activity {
 
 		//Skapa olika konverterare
 		valueTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
-
+		
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
@@ -64,28 +65,40 @@ public class StartPoint extends Activity {
 					//Om 0 så vill vi konvertera volymer
 					spinner1.setAdapter(volymEnheterAdapter);
 					spinner2.setAdapter(volymEnheterAdapter);
+					
+					explained = "1m^3 = 1000dm^3 = 1000 000cm^3";
 				}
 				else if (arg2 == 1){
 					//om 1 så vill vi konvertera areor
 					spinner1.setAdapter(areaEnheterAdapter);
 					spinner2.setAdapter(areaEnheterAdapter);
+					
+					explained = "1m^2 = 100dm^2 = 10000 cm^2";
 				}
 				else if (arg2 == 2){
 					// Om 2 vill vi konvertera Streckor
 					spinner1.setAdapter(streckaEnheterAdapter);
 					spinner2.setAdapter(streckaEnheterAdapter);
+					
+					explained = "1m = 10dm = 100cm";
 				}
 				else if (arg2 == 3){
 					//Om 3 vill vi konvertera hastigheter
 					spinner1.setAdapter(hastighetEnheterAdapter);
 					spinner2.setAdapter(hastighetEnheterAdapter);
+					
+					explained = "1k/h = 1/3.6m/s\nc = 2.99herpm/s";
 				}
 				else {
 					//om 4 så konverteras Tid
 					spinner1.setAdapter(tidEnheterAdapter);
 					spinner2.setAdapter(tidEnheterAdapter);
+					
+					explained = "1h = 60min = 3600s";
 				}
 				spinner2.setSelection(1);
+				TextView explainTextView = (TextView) findViewById(R.id.explain);
+				explainTextView.setText(explained);
 			}
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -105,9 +118,11 @@ public class StartPoint extends Activity {
 				// TODO Auto-generated method stub
 				String enhet1 = spinner1.getItemAtPosition(spinner1.getSelectedItemPosition()).toString();
 				String enhet2 = spinner2.getItemAtPosition(spinner2.getSelectedItemPosition()).toString();
-				if (editTextInValue.getText().toString().matches("\\d")){
+				if (editTextInValue.getText().toString().matches(".*\\d.*")){
 					double value = Double.parseDouble(editTextInValue.getText().toString());
 					String output = Calculate(valueTypeSpinner.getItemAtPosition(valueTypeSpinner.getSelectedItemPosition()).toString(), enhet1, enhet2, value);
+					Toast toast = Toast.makeText(getApplicationContext(), output, Toast.LENGTH_SHORT);
+					toast.show();
 				}
 				else {
 					Context context = getApplicationContext();
@@ -117,12 +132,6 @@ public class StartPoint extends Activity {
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
 				}
-				Context context = getApplicationContext();
-				CharSequence text = enhet1 + " konverteras till "+ enhet2;
-				int duration = Toast.LENGTH_SHORT;
-
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();	
 			}
 		});
 	}
@@ -133,13 +142,29 @@ public class StartPoint extends Activity {
 	
 	public String Calculate(String type, String fran, String till, double value) {
 		if (type.equals("Volym")){
-			Context context = getApplicationContext();
-			CharSequence text = "Gör funktionen för " + type;
-			int duration = Toast.LENGTH_SHORT;
-
-			Toast toast = Toast.makeText(context, text, duration);
-			toast.show();
-			return null;
+			double m, dm, cm;
+			//konvertera "fran" till alla möjliga enheter 
+			if (fran.equals("m^3")){
+				m = value;
+				dm = m * 1000;
+				cm = dm * 1000;
+			}
+			else if (fran.equals("dm^3")){
+				dm = value;
+				m = dm / 1000;
+				cm = dm * 1000;
+			}
+			else { //cm
+				cm = value;
+				dm = cm / 1000;
+				m = dm / 1000;
+			}
+			//convert to string
+			
+			
+			//Return the values
+			if (till.equals("cm^3")){return Double.toString(cm);} else if(till.equals("dm^3")){return Double.toString(dm);}else {return Double.toString(m);}
+			
 		}
 		else if (type.equals("Area")){
 			Context context = getApplicationContext();

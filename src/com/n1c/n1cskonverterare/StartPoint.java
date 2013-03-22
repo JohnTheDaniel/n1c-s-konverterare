@@ -1,7 +1,10 @@
 package com.n1c.n1cskonverterare;
 
+import java.text.DecimalFormat;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Gravity;
@@ -24,6 +27,8 @@ public class StartPoint extends Activity {
 	EditText editTextInValue;
 	LinearLayout bottomButton;
 	String explained;
+	TextView explainTextView, outputTextView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,6 +39,10 @@ public class StartPoint extends Activity {
 		spinner1 = (Spinner) findViewById(R.id.spinner1);
 		spinner2 = (Spinner) findViewById(R.id.spinner2);
 		editTextInValue = (EditText) findViewById(R.id.inValue);
+		
+		//
+		explainTextView = (TextView) findViewById(R.id.explain);
+		outputTextView = (TextView) findViewById(R.id.output);
 		
 		
 		//Set upp en ArrayAdapter till alla spinner-värden
@@ -66,9 +75,9 @@ public class StartPoint extends Activity {
 					spinner1.setAdapter(volymEnheterAdapter);
 					spinner2.setAdapter(volymEnheterAdapter);
 					
-					explained = "1m^3 = 1000dm^3 = 1000 000cm^3";
+					explained = "1m^3 = 1000dm^3 = 1*10^6cm^3  0.26gallons = 1liter = 1dm^3";
 				}
-				else if (arg2 == 1){
+				/* else if (arg2 == 1){
 					//om 1 så vill vi konvertera areor
 					spinner1.setAdapter(areaEnheterAdapter);
 					spinner2.setAdapter(areaEnheterAdapter);
@@ -87,8 +96,8 @@ public class StartPoint extends Activity {
 					spinner1.setAdapter(hastighetEnheterAdapter);
 					spinner2.setAdapter(hastighetEnheterAdapter);
 					
-					explained = "1k/h = 1/3.6m/s\nc = 2.99herpm/s";
-				}
+					explained = "1km/h = 1/3.6m/s\nc = 2.99herpm/s";
+				} */
 				else {
 					//om 4 så konverteras Tid
 					spinner1.setAdapter(tidEnheterAdapter);
@@ -97,7 +106,6 @@ public class StartPoint extends Activity {
 					explained = "1h = 60min = 3600s";
 				}
 				spinner2.setSelection(1);
-				TextView explainTextView = (TextView) findViewById(R.id.explain);
 				explainTextView.setText(explained);
 			}
 			@Override
@@ -120,9 +128,10 @@ public class StartPoint extends Activity {
 				String enhet2 = spinner2.getItemAtPosition(spinner2.getSelectedItemPosition()).toString();
 				if (editTextInValue.getText().toString().matches(".*\\d.*")){
 					double value = Double.parseDouble(editTextInValue.getText().toString());
-					String output = Calculate(valueTypeSpinner.getItemAtPosition(valueTypeSpinner.getSelectedItemPosition()).toString(), enhet1, enhet2, value);
+					String output = Calculate(valueTypeSpinner.getItemAtPosition(valueTypeSpinner.getSelectedItemPosition()).toString(), enhet1, enhet2, value).replace("E", "*10^");
 					Toast toast = Toast.makeText(getApplicationContext(), output, Toast.LENGTH_SHORT);
 					toast.show();
+					outputTextView.setText(output + " " + enhet2);
 				}
 				else {
 					Context context = getApplicationContext();
@@ -132,6 +141,7 @@ public class StartPoint extends Activity {
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
 				}
+				
 			}
 		});
 	}
@@ -141,42 +151,73 @@ public class StartPoint extends Activity {
 	}
 	
 	public String Calculate(String type, String fran, String till, double value) {
+		DecimalFormat df = new DecimalFormat("###.####");
 		if (type.equals("Volym")){
-			double m, dm, cm;
+			double m, dm, cm, l, g;
 			//konvertera "fran" till alla möjliga enheter 
 			if (fran.equals("m^3")){
 				m = value;
 				dm = m * 1000;
+				cm = dm * 1000;
+				g = dm * 0.26;
+				l = dm;
+			}
+			else if (fran.equals("gallon")){
+				g = value;
+				dm = 1/0.26 * value;
+				l = dm;
+				m = dm / 1000;
 				cm = dm * 1000;
 			}
 			else if (fran.equals("dm^3")){
 				dm = value;
 				m = dm / 1000;
 				cm = dm * 1000;
+				g = dm * 0.26;
+				l = dm;
 			}
 			else { //cm
 				cm = value;
 				dm = cm / 1000;
 				m = dm / 1000;
+				g = dm * 0.26;
+				l = dm;
 			}
 			//convert to string
-			
+			df.format(cm);
+			df.format(dm);
+			df.format(m);
+			df.format(g);
+			df.format(l);
 			
 			//Return the values
-			if (till.equals("cm^3")){return Double.toString(cm);} else if(till.equals("dm^3")){return Double.toString(dm);}else {return Double.toString(m);}
-			
+			if (till.equals("cm^3")){return Double.toString(cm);} 
+			else if(till.equals("dm^3")){return Double.toString(dm);}else if(till.equals("gallon")){return Double.toString(g);}else if(till.equals("liter")){return Double.toString(l);}
+			else {return Double.toString(m);}
 		}
-		else if (type.equals("Area")){
-			Context context = getApplicationContext();
-			CharSequence text = "Gör funktion för " + type;
-			int duration = Toast.LENGTH_SHORT;
-
-			Toast toast = Toast.makeText(context, text, duration);
-			toast.show();
-			return null;
+		
+		else if (type.equals("Tid")){
+			double h, s, min;
+			if (fran.equals("h")){
+				h = value;
+				min = h * 60;
+				s = min * 60;
+			}
+			else if (fran.equals("min")){
+				min = value;
+				s = min * 60;
+				h = min / 80;
+			}
+			else {
+				s = value;
+				min = s / 60;
+				h = min / 60;
+			}
+			
+			if (till.equals("s")){return df.format(s);} else if(till.equals("h")){return df.format(h);}else {return df.format(min);}
 		}
 		else {
-			return null;
+			return "inte redo";
 		}
 	}
 	public String Explaination(String output){
@@ -195,9 +236,8 @@ public class StartPoint extends Activity {
 		case R.id.Om:
 			Intent intent = new Intent(this, omAppen.class);
 			startActivity(intent);
-			overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
 			return true;
-		case R.id.action_settings:
+		case R.id.prefix:
 			Context context = getApplicationContext();
 			CharSequence text = "Inställningarna excisterar bara i parallella universum.\n\nInställningar kommer i framtida versioner.";
 			int duration = Toast.LENGTH_LONG;

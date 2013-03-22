@@ -2,31 +2,33 @@
 <resources>
 
     <string name="app_name">N1c\'s konverterare</string>
-    <string name="action_settings">Inställningar</string>
+    <string name="action_settings">prefix</string>
     <string name="hello_world">Hello world!</string>
     <string name="Till">Till</string>
     <string name="Fran">Från</string>
 	
     <string-array name="valueType">
-        <item>Volym</item>
-        <item>Area</item>
+        <item>Volym</item><!--         <item>Area</item>
         <item>Sträcka</item>
-        <item>Hastighet</item>
+        <item>Hastighet</item> -->
         <item>Tid</item> 
         </string-array>
     
     <string-array name="streckaEnheter">
         <item>km</item>
         <item>m</item>
-        <item>dm</item>
+        <item>foot</item>
         <item>cm</item>
-        <item>mm</item>
+        <item>inch</item>
+        <item>yard</item>
     </string-array>
     
     <string-array name="volymEnheter">
         <item>m^3</item>
         <item>dm^3</item>
         <item>cm^3</item>
+        <item>gallon</item>
+        <item>liter</item>
     </string-array>
     
     <string-array name="tidEnheter">
@@ -38,6 +40,7 @@
     <string-array name="hastighetEnheter">
         <item>m/s</item>
         <item>km/h</item>
+       	<item>miles/h</item>
         <item>c</item>
     </string-array>
     

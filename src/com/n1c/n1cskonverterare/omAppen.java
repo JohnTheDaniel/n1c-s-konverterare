@@ -34,7 +34,6 @@ public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
     case android.R.id.home:
         NavUtils.navigateUpFromSameTask(this);
-        overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
         return true;
     }
     return super.onOptionsItemSelected(item);

@@ -9,8 +9,8 @@
 	
     <string-array name="valueType">
         <item>Volym</item><!--         <item>Area</item>
-        <item>Sträcka</item>
-        <item>Hastighet</item> -->
+        <item>Sträcka</item> -->
+        <item>Hastighet</item>
         <item>Tid</item> 
         </string-array>
     
@@ -43,7 +43,6 @@
         <item>m/s</item>
         <item>km/h</item>
        	<item>miles/h</item>
-        <item>c</item>
     </string-array>
     
     <string-array name="areaEnheter">

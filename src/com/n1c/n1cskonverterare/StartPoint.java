@@ -90,14 +90,14 @@ public class StartPoint extends Activity {
 					spinner2.setAdapter(streckaEnheterAdapter);
 					
 					explained = "1m = 10dm = 100cm";
-				}
-				else if (arg2 == 3){
+				} */
+				else if (arg2 == 1){
 					//Om 3 vill vi konvertera hastigheter
 					spinner1.setAdapter(hastighetEnheterAdapter);
 					spinner2.setAdapter(hastighetEnheterAdapter);
 					
-					explained = "1km/h = 1/3.6m/s\nc = 2.99herpm/s";
-				} */
+					explained = "1 m/s = 1*3.6 km/h = 1*0.44704 miles/h";
+				}
 				else {
 					//om 4 så konverteras Tid
 					spinner1.setAdapter(tidEnheterAdapter);
@@ -237,6 +237,24 @@ public class StartPoint extends Activity {
 			
 			if (till.equals("s")){return df.format(s);} else if(till.equals("h")){return df.format(h);}else if(till.equals("y")){return df.format("y");}else if(till.equals("d")){return df.format(d);}else {return df.format(min);}
 		}
+		else if (fran.equals("Hastighet")){
+			double ms, kmh, mph;
+			if (fran.equals("m/s")){
+				ms = value;
+			}
+			else if(fran.equals("km/h")){
+				ms = value / 3.6;
+			}
+			else { //miles per hour
+				ms = value * 0.44704;
+			}
+			
+			//Tabell
+			kmh = ms * 3.6;
+			mph = ms / 0.44704;
+			
+			if (till.equals("miles/h")){return df.format(mph);} else if(till.equals("km/h")){return df.format(kmh);} else {return df.format(ms);}
+		} 
 		else {
 			return "inte redo";
 		}

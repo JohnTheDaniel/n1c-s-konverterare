@@ -129,8 +129,6 @@ public class StartPoint extends Activity {
 				if (editTextInValue.getText().toString().matches(".*\\d.*")){
 					double value = Double.parseDouble(editTextInValue.getText().toString());
 					String output = Calculate(valueTypeSpinner.getItemAtPosition(valueTypeSpinner.getSelectedItemPosition()).toString(), enhet1, enhet2, value).replace("E", "*10^");
-					Toast toast = Toast.makeText(getApplicationContext(), output, Toast.LENGTH_SHORT);
-					toast.show();
 					outputTextView.setText(output + " " + enhet2);
 				}
 				else {
@@ -169,7 +167,15 @@ public class StartPoint extends Activity {
 				m = dm / 1000;
 				cm = dm * 1000;
 			}
+			
 			else if (fran.equals("dm^3")){
+				dm = value;
+				m = dm / 1000;
+				cm = dm * 1000;
+				g = dm * 0.26;
+				l = dm;
+			}
+			else if (fran.equals("liter")){
 				dm = value;
 				m = dm / 1000;
 				cm = dm * 1000;
@@ -184,37 +190,52 @@ public class StartPoint extends Activity {
 				l = dm;
 			}
 			//convert to string
-			df.format(cm);
-			df.format(dm);
-			df.format(m);
-			df.format(g);
-			df.format(l);
-			
+
 			//Return the values
-			if (till.equals("cm^3")){return Double.toString(cm);} 
-			else if(till.equals("dm^3")){return Double.toString(dm);}else if(till.equals("gallon")){return Double.toString(g);}else if(till.equals("liter")){return Double.toString(l);}
-			else {return Double.toString(m);}
+			if (till.equals("cm^3")){return df.format(cm);} 
+			else if(till.equals("dm^3")){return df.format(dm);}else if(till.equals("gallon")){return df.format(g);}else if(till.equals("liter")){return df.format(l);}
+			else {return df.format(m);}
 		}
 		
 		else if (type.equals("Tid")){
-			double h, s, min;
+			double h, s, min, d, y;
 			if (fran.equals("h")){
 				h = value;
 				min = h * 60;
 				s = min * 60;
+				d = h / 24;
+				y = d / 365;
 			}
 			else if (fran.equals("min")){
 				min = value;
 				s = min * 60;
 				h = min / 80;
+				d = h / 24;
+				y = d / 365;
+			}
+			else if (fran.equals("days")){
+				d = value;
+				y = d / 365;
+				h = d * 24;
+				min = h * 60;
+				s = min * 60;
+			}
+			else if (fran.equals("years")){
+				y = value;
+				d = y * 365;
+				h = d * 24;
+				min = h * 60;
+				s = min * 60;
 			}
 			else {
 				s = value;
 				min = s / 60;
 				h = min / 60;
+				d = h / 24;
+				y = d / 365;
 			}
 			
-			if (till.equals("s")){return df.format(s);} else if(till.equals("h")){return df.format(h);}else {return df.format(min);}
+			if (till.equals("s")){return df.format(s);} else if(till.equals("h")){return df.format(h);}else if(till.equals("y")){return df.format("y");}else if(till.equals("d")){return df.format(d);}else {return df.format(min);}
 		}
 		else {
 			return "inte redo";

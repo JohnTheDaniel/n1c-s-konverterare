@@ -1,9 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
+    <!--<item
         android:id="@+id/prefix"
         android:orderInCategory="99"
         android:showAsAction="ifRoom"
-        android:title="@string/action_settings"/>
+        android:title="@string/action_settings"/>-->
 	<item
 	    android:id="@+id/Om"
 	    android:title="Om Appen"

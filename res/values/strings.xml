@@ -11,9 +11,17 @@
         <item>Volym</item><!--         <item>Area</item>
         <item>Sträcka</item> -->
         <item>Hastighet</item>
+        <item>Massa</item>
         <item>Tid</item> 
         </string-array>
     
+    <string-array name="massaEnheter">
+        <item>kg</item>
+        <item>hg</item>
+        <item>g</item>
+        <item>mg</item>
+        <item>ton</item>
+    </string-array>
     <string-array name="streckaEnheter">
         <item>km</item>
         <item>m</item>

@@ -4,10 +4,8 @@ import java.text.DecimalFormat;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +50,7 @@ public class StartPoint extends Activity {
 		final ArrayAdapter<CharSequence> tidEnheterAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.tidEnheter, android.R.layout.simple_spinner_item);
 		final ArrayAdapter<CharSequence> hastighetEnheterAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.hastighetEnheter, android.R.layout.simple_spinner_item);
 		final ArrayAdapter<CharSequence> areaEnheterAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.areaEnheter, android.R.layout.simple_spinner_item);
+		final ArrayAdapter<CharSequence> massaEnheterAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.massaEnheter, android.R.layout.simple_spinner_item);
 		
 		//Set ArrayAdapter Dropdown
 		setDropDown(volymEnheterAdapter);
@@ -59,6 +58,7 @@ public class StartPoint extends Activity {
 		setDropDown(tidEnheterAdapter);
 		setDropDown(hastighetEnheterAdapter);
 		setDropDown(areaEnheterAdapter);
+		setDropDown(massaEnheterAdapter);
 		setDropDown(valueTypeAdapter);
 		
 		//Standard konverterare
@@ -97,6 +97,13 @@ public class StartPoint extends Activity {
 					spinner2.setAdapter(hastighetEnheterAdapter);
 					
 					explained = "1 m/s = 1*3.6 km/h = 1*0.44704 miles/h";
+				}
+				else if (arg2 == 2){
+					//om 2 vill vi konvertera massa
+					spinner1.setAdapter(massaEnheterAdapter);
+					spinner2.setAdapter(massaEnheterAdapter);
+					
+					explained = "0.001 ton = 1kg = 1000g = 1*10^6 mg";
 				}
 				else {
 					//om 4 så konverteras Tid
@@ -144,7 +151,7 @@ public class StartPoint extends Activity {
 		});
 	}
 	
-	public void setDropDown(ArrayAdapter ArrayAdapter) {
+	public void setDropDown(ArrayAdapter<CharSequence> ArrayAdapter) {
 		ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	}
 	
@@ -237,7 +244,7 @@ public class StartPoint extends Activity {
 			
 			if (till.equals("s")){return df.format(s);} else if(till.equals("h")){return df.format(h);}else if(till.equals("y")){return df.format("y");}else if(till.equals("d")){return df.format(d);}else {return df.format(min);}
 		}
-		else if (fran.equals("Hastighet")){
+		else if (type.equals("Hastighet")){
 			double ms, kmh, mph;
 			if (fran.equals("m/s")){
 				ms = value;
@@ -255,6 +262,33 @@ public class StartPoint extends Activity {
 			
 			if (till.equals("miles/h")){return df.format(mph);} else if(till.equals("km/h")){return df.format(kmh);} else {return df.format(ms);}
 		} 
+		else if (type.equals("Massa")){
+			double t, kg, g, hg, mg;
+			if (fran.equals("ton")){
+				g = value * 1000 * 1000;
+			}
+			else if (fran.equals("kg")){
+				g = value * 1000;
+			}
+			else if (fran.equals("hg")){
+				g = value * 100;
+			}
+			else if (fran.equals("mg")){
+				g = value / 1000;
+			}
+			else {
+				g = value;
+			}
+			
+			//Tabell
+			t = g / 1000000;
+			kg = g / 1000;
+			hg = g / 100;
+			mg = g * 1000;
+			
+			//Returnera värden
+			if (till.equals("ton")){return df.format(t);}else if (till.equals("kg")){return df.format(kg);}else if (till.equals("hg")){return df.format(hg);}else if (till.equals("mg")){return df.format(mg);}else {return df.format(g);}
+		}
 		else {
 			return "inte redo";
 		}
@@ -276,7 +310,7 @@ public class StartPoint extends Activity {
 			Intent intent = new Intent(this, omAppen.class);
 			startActivity(intent);
 			return true;
-		case R.id.prefix:
+		/*case R.id.prefix:
 			Context context = getApplicationContext();
 			CharSequence text = "Inställningarna excisterar bara i parallella universum.\n\nInställningar kommer i framtida versioner.";
 			int duration = Toast.LENGTH_LONG;
@@ -284,7 +318,7 @@ public class StartPoint extends Activity {
 			Toast toast = Toast.makeText(context, text, duration);
 			TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
 			if( v != null) v.setGravity(Gravity.CENTER);
-			toast.show();
+			toast.show();*/
 		default:
 			return super.onOptionsItemSelected(item);
 		}

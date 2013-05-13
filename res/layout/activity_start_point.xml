@@ -31,13 +31,13 @@
             android:id="@+id/inValue"
             android:layout_height="48dp"
             android:layout_width="144dp"
-            android:hint="Värde"
+            android:hint="@string/value"
             android:inputType="numberDecimal"/>		
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:prompt="@string/Fran"
+            android:prompt="@string/from"
             android:layout_toRightOf="@id/inValue" 
            >
 		</Spinner>
@@ -46,7 +46,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="48dp"
 		    android:layout_toRightOf="@+id/arrow"
-		    android:prompt="@string/Till" />
+		    android:prompt="@string/to" />
 		
 		<ImageView 
 		    android:layout_toRightOf="@id/spinner1"
@@ -63,7 +63,7 @@
 		    android:layout_marginTop="35dp"
 		    android:orientation="vertical">
 		    <TextView 
-		        android:text="Output Area"
+		        android:text="@string/outputArea"
 		        android:layout_height="96dp"
 		        android:layout_width="fill_parent"
 		        android:gravity="center"
@@ -74,7 +74,7 @@
 		        android:longClickable="true"/>
 		    	
 		    <TextView 
-		        android:text="Förklaring"
+		        android:text="@string/explaination"
 		        android:layout_height="48dp"
 		        android:layout_width="fill_parent"
 		        android:gravity="center"
@@ -100,7 +100,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:gravity="center"
-	        android:text="KONVERTERA"
+	        android:text="@string/convert"
 	        android:textSize="15sp"
 	        android:textStyle="bold|italic" />
 

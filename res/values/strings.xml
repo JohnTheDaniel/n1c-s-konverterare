@@ -3,16 +3,30 @@
 
     <string name="app_name">N1c\'s konverterare</string>
     <string name="action_settings">prefix</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="Till">Till</string>
-    <string name="Fran">Från</string>
+    <string name="to">Till</string>
+    <string name="from">Från</string>
+    <string name="value">Värde</string>
+    <string name="outputArea">Output Area</string>
+    <string name="convert">KONVERTERA</string><!-- Always bold -->
+    <string name="explaination">Förklaring</string>
+    
+    <!-- Explained texts -->
+    <string name="volume_explained">1m^3 = 1000dm^3 = 1*10^6cm^3  0.26gallons = 1liter = 1dm^3</string>
+	<string name="area_explained">1m^2 = 100dm^2 = 10000 cm^2</string>
+	<string name="length_explained">1m = 10dm = 100cm</string>
+	<string name="speeds_explained">1 m/s = 1*3.6 km/h = 1*0.44704 miles/h</string>
+	<string name="weight_explained">0.001 ton = 1kg = 1000g = 1*10^6 mg</string>
+	<string name="time_explained">1h = 60min = 3600s</string>
+	<string name="temperature_explained">F = 1.8C + 32, K = C - 273.15</string>
 	
-    <string-array name="valueType">
+	<!-- The dropdowns -->
+    <string-array name="valueType"> <!-- This order is important. Do not change the order. arg0 = volym etc. Allways add new ones from bottom-->
         <item>Volym</item><!--         <item>Area</item>
         <item>Sträcka</item> -->
         <item>Hastighet</item>
         <item>Massa</item>
         <item>Tid</item> 
+        <item>Temperatur</item>
         </string-array>
     
     <string-array name="massaEnheter">
@@ -59,8 +73,13 @@
         <item>dm^2</item>
         <item>cm^2</item>
     </string-array>
+    <string-array name="temperaturEnheter">
+        <item>C</item>
+        <item>F</item>
+        <item>K</item>
+    </string-array>
     
     <!-- Om appen strängar -->
     <string name="omappen_titel">Om Appen</string>
-    <string name="lorem_ipsum">N1c\'s Fysikkonverteringsapp v.0.2\n\nDetta är en app utvecklad av oss och för oss elever i klass N1c på blackebergsgymnasium och är licensierad under Open Source Licens\n\nAppens källkod kan man hitta på <a href="https://github.com/JohnTheDaniel/n1c-s-konverterare">www.github.com/JohnTheDaniel/n1c-s-konverterare</a>\n\nTack till Thommy Modén för att han är en så fantastisk fysiklärare!\nTack till alla i klass N1c för erat bidragande till en fantastisk skolmiljö och 3 underbara år!\n\n\nHittat problem med appen?\nNo Problem!\nEmaila John: johndaniel@bosser.com\nEller skicka in problemrapport via github</string>
+    <string name="lorem_ipsum">N1c\'s Fysikkonverteringsapp v.0.1.4\n\nDetta är en app utvecklad av oss och för oss elever i klass N1c på blackebergsgymnasium och är licensierad under Open Source Licens\n\nAppens källkod kan man hitta på <a href="https://github.com/JohnTheDaniel/n1c-s-konverterare">www.github.com/JohnTheDaniel/n1c-s-konverterare</a>\n\nTack till Thommy Modén för att han är en så fantastisk fysiklärare!\nTack till alla i klass N1c för erat bidragande till en fantastisk skolmiljö och 3 underbara år!\n\n\nHittat problem med appen?\nNo Problem!\nEmaila John: johndaniel@bosser.com\nEller skicka in problemrapport via github\n\n\nAppen använder sig av ActionBarSherlock för att ge en ActionBar till tidigare versioner av android. \n<a href="http://www.actionbarsherlock.com">ActionBarSherlock</a></string>
 </resources>

@@ -2,12 +2,14 @@ package com.n1c.n1cskonverterare;
 
 import java.text.DecimalFormat;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuInflater;
+
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -19,7 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StartPoint extends Activity {
+public class StartPoint extends SherlockActivity {
 	
 	Spinner spinner2, spinner1, valueTypeSpinner;
 	EditText editTextInValue;
@@ -51,6 +53,7 @@ public class StartPoint extends Activity {
 		final ArrayAdapter<CharSequence> hastighetEnheterAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.hastighetEnheter, android.R.layout.simple_spinner_item);
 		final ArrayAdapter<CharSequence> areaEnheterAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.areaEnheter, android.R.layout.simple_spinner_item);
 		final ArrayAdapter<CharSequence> massaEnheterAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.massaEnheter, android.R.layout.simple_spinner_item);
+		final ArrayAdapter<CharSequence> temperaturAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.temperaturEnheter, android.R.layout.simple_spinner_item);
 		
 		//Set ArrayAdapter Dropdown
 		setDropDown(volymEnheterAdapter);
@@ -60,6 +63,7 @@ public class StartPoint extends Activity {
 		setDropDown(areaEnheterAdapter);
 		setDropDown(massaEnheterAdapter);
 		setDropDown(valueTypeAdapter);
+		setDropDown(temperaturAdapter);
 		
 		//Standard konverterare
 		valueTypeSpinner.setAdapter(valueTypeAdapter);
@@ -71,46 +75,53 @@ public class StartPoint extends Activity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				if (arg2 == 0){
-					//Om 0 så vill vi konvertera volymer
+					//want to convert volumes
 					spinner1.setAdapter(volymEnheterAdapter);
 					spinner2.setAdapter(volymEnheterAdapter);
 					
-					explained = "1m^3 = 1000dm^3 = 1*10^6cm^3  0.26gallons = 1liter = 1dm^3";
+					explained = getString(R.string.volume_explained);
 				}
 				/* else if (arg2 == 1){
-					//om 1 så vill vi konvertera areor
+					//want to convert area
 					spinner1.setAdapter(areaEnheterAdapter);
 					spinner2.setAdapter(areaEnheterAdapter);
 					
-					explained = "1m^2 = 100dm^2 = 10000 cm^2";
+					explained = getString(R.string.area_explained);
 				}
 				else if (arg2 == 2){
-					// Om 2 vill vi konvertera Streckor
+					// want to convert length
 					spinner1.setAdapter(streckaEnheterAdapter);
 					spinner2.setAdapter(streckaEnheterAdapter);
 					
-					explained = "1m = 10dm = 100cm";
+					explained = getString(R.string.length_explained);
 				} */
 				else if (arg2 == 1){
-					//Om 3 vill vi konvertera hastigheter
+					//want to convert speeds
 					spinner1.setAdapter(hastighetEnheterAdapter);
 					spinner2.setAdapter(hastighetEnheterAdapter);
 					
-					explained = "1 m/s = 1*3.6 km/h = 1*0.44704 miles/h";
+					explained = getString(R.string.speeds_explained);
 				}
 				else if (arg2 == 2){
-					//om 2 vill vi konvertera massa
+					//want to convert weight 
 					spinner1.setAdapter(massaEnheterAdapter);
 					spinner2.setAdapter(massaEnheterAdapter);
 					
-					explained = "0.001 ton = 1kg = 1000g = 1*10^6 mg";
+					explained = getString(R.string.weight_explained);
 				}
-				else {
-					//om 4 så konverteras Tid
+				else if (arg2 == 3){
+					//want to convert time
 					spinner1.setAdapter(tidEnheterAdapter);
 					spinner2.setAdapter(tidEnheterAdapter);
 					
-					explained = "1h = 60min = 3600s";
+					explained = getString(R.string.time_explained);
+				}
+				else if (arg2 == 4){
+					//want to convert temperatures
+					spinner1.setAdapter(temperaturAdapter);
+					spinner2.setAdapter(temperaturAdapter);
+					
+					explained = getString(R.string.temperature_explained);
 				}
 				spinner2.setSelection(1);
 				explainTextView.setText(explained);
@@ -123,8 +134,8 @@ public class StartPoint extends Activity {
 		});
 		
 		
-		//Räknaren
-		//Lyssna efter klick på den undre knappen
+		//Counter
+		//Listens for clicks on the button button
 		bottomButton = (LinearLayout) findViewById(R.id.bottomButton);
 		bottomButton.setOnClickListener(new OnClickListener(){
 
@@ -203,46 +214,58 @@ public class StartPoint extends Activity {
 			else if(till.equals("dm^3")){return df.format(dm);}else if(till.equals("gallon")){return df.format(g);}else if(till.equals("liter")){return df.format(l);}
 			else {return df.format(m);}
 		}
-		
+		else if (type.equals("Temperatur")){
+			double c, f, k;
+			if (fran.equals("C")){
+				c = value;
+			}
+			else if (fran.equals("F")){
+				c = (value - 32)/1.8;
+			}
+			else //(fran.equals("K")){
+			{
+				c = value - 273.15;
+			}
+			
+			
+			//Tabell
+			f = c * 1.8 + 32;
+			k = c + 273.15;
+			
+			//Return
+			if(till.equals("C")){return df.format(c);}
+			else if(till.equals("F")){return df.format(f);}
+			else /*(till.equals("K"))*/{return df.format(k);}
+		}
 		else if (type.equals("Tid")){
 			double h, s, min, d, y;
 			if (fran.equals("h")){
-				h = value;
-				min = h * 60;
-				s = min * 60;
-				d = h / 24;
-				y = d / 365;
-			}
-			else if (fran.equals("min")){
-				min = value;
-				s = min * 60;
-				h = min / 80;
-				d = h / 24;
-				y = d / 365;
+				s = value * 60 * 60;
 			}
 			else if (fran.equals("days")){
-				d = value;
-				y = d / 365;
-				h = d * 24;
-				min = h * 60;
-				s = min * 60;
+				s = value * 86400;
+			}
+			else if (fran.equals("min")){
+				s = value * 60;
 			}
 			else if (fran.equals("years")){
-				y = value;
-				d = y * 365;
-				h = d * 24;
-				min = h * 60;
-				s = min * 60;
+				s = value * 31556926;
 			}
 			else {
 				s = value;
-				min = s / 60;
-				h = min / 60;
-				d = h / 24;
-				y = d / 365;
 			}
+
+			//Tabell
+			h = s / 3600;
+			min = s / 60;
+			d = s / 86400;
+			y = s / 31556926;
 			
-			if (till.equals("s")){return df.format(s);} else if(till.equals("h")){return df.format(h);}else if(till.equals("y")){return df.format("y");}else if(till.equals("d")){return df.format(d);}else {return df.format(min);}
+			if (till.equals("min")){return df.format(min);} 
+			else if(till.equals("h")){return df.format(h);}
+			else if(till.equals("years")){return df.format(y);}
+			else if(till.equals("days")){return df.format(d);}
+			else {return df.format(s);}
 		}
 		else if (type.equals("Hastighet")){
 			double ms, kmh, mph;
@@ -301,7 +324,8 @@ public class StartPoint extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.start_point, menu);
+		MenuInflater inflater = getSupportMenuInflater();
+		inflater.inflate(R.menu.start_point, menu);
 		return true;
 	}
 	public boolean onOptionsItemSelected(MenuItem item){

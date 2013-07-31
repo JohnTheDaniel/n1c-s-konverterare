@@ -1,16 +1,15 @@
 package com.n1c.n1cskonverterare;
 
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
-
 import android.annotation.SuppressLint;
-
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 
 @SuppressLint("NewApi")
 public class omAppen extends SherlockActivity{
@@ -34,8 +33,10 @@ public class omAppen extends SherlockActivity{
 public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
     case android.R.id.home:
-        NavUtils.navigateUpFromSameTask(this);
-        return true;
+    	Intent intent = new Intent(this, StartPoint.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        break;
     }
     return super.onOptionsItemSelected(item);
 }

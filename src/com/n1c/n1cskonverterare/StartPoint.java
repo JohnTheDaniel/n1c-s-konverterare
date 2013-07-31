@@ -1,25 +1,18 @@
 package com.n1c.n1cskonverterare;
 
-import java.text.DecimalFormat;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuInflater;
-
-import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
+import java.text.DecimalFormat;
 
 public class StartPoint extends SherlockActivity {
 	
@@ -45,7 +38,7 @@ public class StartPoint extends SherlockActivity {
 		outputTextView = (TextView) findViewById(R.id.output);
 		
 		
-		//Set upp en ArrayAdapter till alla spinner-vŠrden
+		//Set upp en ArrayAdapter till alla spinner-vï¿½rden
 		final ArrayAdapter<CharSequence> valueTypeAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.valueType, R.layout.spinner_layout);
 		final ArrayAdapter<CharSequence> volymEnheterAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.volymEnheter, android.R.layout.simple_spinner_item);
 		final ArrayAdapter<CharSequence> streckaEnheterAdapter = ArrayAdapter.createFromResource(StartPoint.this, R.array.streckaEnheter, android.R.layout.simple_spinner_item);
@@ -151,7 +144,7 @@ public class StartPoint extends SherlockActivity {
 				}
 				else {
 					Context context = getApplicationContext();
-					CharSequence text = "Inget vŠrde angivet";
+					CharSequence text = "Inget vï¿½rde angivet";
 					int duration = Toast.LENGTH_SHORT;
 
 					Toast toast = Toast.makeText(context, text, duration);
@@ -170,7 +163,7 @@ public class StartPoint extends SherlockActivity {
 		DecimalFormat df = new DecimalFormat("###.####");
 		if (type.equals("Volym")){
 			double m, dm, cm, l, g;
-			//konvertera "fran" till alla mšjliga enheter 
+			//konvertera "fran" till alla mï¿½jliga enheter 
 			if (fran.equals("m^3")){
 				m = value;
 				dm = m * 1000;
@@ -309,7 +302,7 @@ public class StartPoint extends SherlockActivity {
 			hg = g / 100;
 			mg = g * 1000;
 			
-			//Returnera vŠrden
+			//Returnera vï¿½rden
 			if (till.equals("ton")){return df.format(t);}else if (till.equals("kg")){return df.format(kg);}else if (till.equals("hg")){return df.format(hg);}else if (till.equals("mg")){return df.format(mg);}else {return df.format(g);}
 		}
 		else {
@@ -336,7 +329,7 @@ public class StartPoint extends SherlockActivity {
 			return true;
 		/*case R.id.prefix:
 			Context context = getApplicationContext();
-			CharSequence text = "InstŠllningarna excisterar bara i parallella universum.\n\nInstŠllningar kommer i framtida versioner.";
+			CharSequence text = "Instï¿½llningarna excisterar bara i parallella universum.\n\nInstï¿½llningar kommer i framtida versioner.";
 			int duration = Toast.LENGTH_LONG;
 
 			Toast toast = Toast.makeText(context, text, duration);
